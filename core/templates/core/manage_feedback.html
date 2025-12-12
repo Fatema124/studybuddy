@@ -1,0 +1,132 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+  .feedback-manage-shell {
+    min-height: 70vh;
+  }
+
+  .feedback-manage-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .feedback-manage-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(123, 92, 250, 0.12);
+    color: #5a3dd9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .feedback-manage-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+
+  .feedback-manage-table thead th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .feedback-manage-table tbody td {
+    vertical-align: top;
+    font-size: 0.9rem;
+  }
+
+  .feedback-manage-rating {
+    font-weight: 600;
+  }
+
+  .feedback-manage-created {
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+</style>
+
+<div class="feedback-manage-shell py-4 py-lg-5">
+  <div class="container">
+    <div class="feedback-manage-header d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+      <div>
+        <span class="feedback-manage-pill mb-2 d-inline-block">Owner view</span>
+        <h1 class="h4 mb-1">Group feedback</h1>
+        <p class="sbh-section-subtitle mb-0">
+          Review feedback left by students and search by group title or comment text.
+        </p>
+      </div>
+    </div>
+
+    <div class="sbh-card feedback-manage-card mb-3">
+      <div class="card-body pb-2">
+        <form method="get" class="row g-2 align-items-center mb-2">
+          <div class="col-sm-6 col-md-5">
+            <input
+              type="text"
+              name="q"
+              value="{{ q }}"
+              class="form-control"
+              placeholder="Search feedback…"
+            >
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary rounded-pill">
+              Filter
+            </button>
+          </div>
+          {% if q %}
+            <div class="col-auto">
+              <a href="{% url 'manage_feedback' %}" class="btn btn-link p-0 ms-2">
+                Clear
+              </a>
+            </div>
+          {% endif %}
+        </form>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table mb-0 feedback-manage-table">
+          <thead class="table-light">
+            <tr>
+              <th>Group title</th>
+              <th>Student</th>
+              <th>Rating</th>
+              <th>Comment</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for fb in feedback_list %}
+            <tr>
+              <td>{{ fb.group_title }}</td>
+              <td>{{ fb.student_name }}</td>
+              <td class="feedback-manage-rating">{{ fb.rating }}</td>
+              <td style="white-space: pre-wrap;">{{ fb.comment }}</td>
+              <td class="feedback-manage-created">{{ fb.created_at }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="text-center text-muted py-4">
+                No feedback found.
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <a href="{% url 'home' %}" class="btn btn-link mt-2 px-0">
+      Back to home
+    </a>
+  </div>
+</div>
+{% endblock %}

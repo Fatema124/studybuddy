@@ -1,0 +1,114 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+  .tutor-success-shell {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .tutor-success-card {
+    border-radius: 1.4rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+    background: var(--sbh-surface);
+  }
+
+  .tutor-success-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(123, 92, 250, 0.12);
+    color: #5a3dd9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tutor-success-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .tutor-success-image-wrap {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+  }
+
+  .tutor-success-image {
+    width: 100%;
+    height: 100%;
+    max-height: 260px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 991.98px) {
+    .tutor-success-shell {
+      padding-top: 1.5rem;
+      padding-bottom: 2rem;
+      align-items: stretch;
+    }
+  }
+</style>
+
+<div class="tutor-success-shell">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-8">
+        <div class="sbh-card tutor-success-card p-4 p-md-5">
+          <div class="row g-4 align-items-center">
+            <!-- Text side -->
+            <div class="col-md-6">
+              <span class="tutor-success-pill mb-3">Tutor application</span>
+
+              <div class="tutor-success-icon">
+                ✓
+              </div>
+
+              <h1 class="h4 mb-2">Application submitted</h1>
+              <p class="sbh-section-subtitle mb-3">
+                Thank you for offering to support other students. Your tutor application has been
+                received and will be reviewed by the Study Buddy team.
+              </p>
+              <p class="sbh-section-subtitle mb-4">
+                You’ll be contacted by email if your application is approved or if we need any
+                additional information.
+              </p>
+
+              <a class="btn btn-sbh-primary rounded-pill" href="{% url 'home' %}">
+                Back to home
+              </a>
+            </div>
+
+            <!-- Illustration side (neutral, no specific nationality) -->
+            <div class="col-md-6">
+              <div class="tutor-success-image-wrap">
+                <img
+                  src="https://i0.wp.com/developersbreach.com/wp-content/uploads/2021/07/crop-0-0-824-602-0-undraw_studying_s3l7-edited-1.png?fit=300%2C219&ssl=1"
+                  alt="Illustration of a student studying at a desk"
+                  class="tutor-success-image"
+                >
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

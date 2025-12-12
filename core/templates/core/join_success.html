@@ -1,0 +1,83 @@
+{% extends "core/base.html" %}
+{% block content %}
+<style>
+  .join-success-shell {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .join-success-card {
+    max-width: 560px;
+    border-radius: 1.4rem;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+
+  .join-success-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(37, 99, 235, 0.12);
+    color: #1d4ed8;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .join-success-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+    background: radial-gradient(circle at 30% 20%, #bfdbfe, #2563eb);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.45);
+  }
+
+  .join-success-icon-wrap svg {
+    width: 40px;
+    height: 40px;
+    color: white;
+  }
+
+  .join-success-text {
+    color: #6b7280;
+  }
+</style>
+
+<div class="join-success-shell">
+  <div class="sbh-card join-success-card text-center p-4 p-md-5">
+    <div class="mb-3">
+      <span class="join-success-pill">Join request</span>
+    </div>
+
+    <div class="join-success-icon-wrap mb-4">
+      <svg viewBox="0 0 24 24" fill="none">
+        <circle cx="8" cy="10" r="3.2" fill="white" />
+        <circle cx="16" cy="10" r="3.2" fill="rgba(239,246,255,0.95)" />
+        <path d="M4.5 17.5c.8-1.8 2.2-3 3.7-3h0c1.5 0 2.9 1.2 3.7 3"
+              stroke="rgba(239,246,255,0.95)" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M14 16.2l1.7 1.8 3.3-3.5"
+              stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <h1 class="h4 mb-2">Thank you!</h1>
+    <p class="join-success-text mb-4">
+      Your request to join the study group has been submitted and is now pending review.
+    </p>
+
+    <a href="{% url 'home' %}" class="btn btn-sbh-primary rounded-pill px-4">
+      Back to home
+    </a>
+  </div>
+</div>
+{% endblock %}

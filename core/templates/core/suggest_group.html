@@ -1,0 +1,229 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+  .suggest-shell {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .suggest-main-card {
+    border-radius: 1.4rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+    background: var(--sbh-surface);
+  }
+
+  .suggest-side-card {
+    border-radius: 1.4rem;
+    border: 1px solid rgba(123, 92, 250, 0.25);
+    background: radial-gradient(circle at top left, #fdf2ff 0, #f6f3ff 35%, #f4f4ff 100%);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.8rem 1.9rem;
+  }
+
+  .suggest-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(123, 92, 250, 0.12);
+    color: #5a3dd9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .suggest-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.9);
+    color: #6b21a8;
+    margin-bottom: 0.35rem;
+  }
+
+  .suggest-side-title {
+    font-size: 1rem;
+    font-weight: 650;
+    margin-bottom: 0.25rem;
+  }
+
+  .suggest-side-text {
+    font-size: 0.86rem;
+    color: var(--sbh-text-muted);
+    margin-bottom: 0;
+  }
+
+  .suggest-image-wrap {
+    margin: 1.2rem 0 1rem;
+  }
+
+  .suggest-image {
+    width: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    border-radius: 1.2rem;
+    background-color: #ffffff;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.22);
+  }
+
+  .suggest-side-footer {
+    font-size: 0.8rem;
+    color: var(--sbh-text-muted);
+    border-top: 1px dashed rgba(148, 163, 184, 0.6);
+    padding-top: 0.7rem;
+    margin-top: 0.2rem;
+  }
+
+  @media (max-width: 991.98px) {
+    .suggest-shell {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+      align-items: stretch;
+    }
+    .suggest-image {
+      max-height: 260px;
+    }
+  }
+</style>
+
+<div class="suggest-shell">
+  <div class="row justify-content-center w-100">
+    <div class="col-xxl-10">
+      <div class="row g-4 align-items-stretch">
+        <!-- Left: form -->
+        <div class="col-lg-7">
+          <div class="sbh-card suggest-main-card h-100">
+            <div class="card-body p-4 p-md-5">
+              <span class="suggest-pill mb-3">Suggest a group</span>
+
+              <h1 class="h4 mb-2">Suggest a New Study Group</h1>
+              <p class="sbh-section-subtitle mb-4">
+                Share an idea for a new group that could help you and other students.
+              </p>
+
+              <form method="post" class="vstack gap-3">
+                {% csrf_token %}
+
+                <div>
+                  <label class="form-label" for="full_name">Full name</label>
+                  <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    class="form-control"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <label class="form-label" for="email">Email address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <label class="form-label" for="course_code">Course code</label>
+                  <input
+                    type="text"
+                    id="course_code"
+                    name="course_code"
+                    class="form-control"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <label class="form-label" for="suggested_title">Suggested group title</label>
+                  <input
+                    type="text"
+                    id="suggested_title"
+                    name="suggested_title"
+                    class="form-control"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <label class="form-label" for="preferred_mode">Preferred mode</label>
+                  <select id="preferred_mode" name="preferred_mode" class="form-select" required>
+                    <option value="">Choose…</option>
+                    <option value="online">Online</option>
+                    <option value="campus">On campus</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="form-label" for="notes">Notes (optional)</label>
+                  <textarea
+                    id="notes"
+                    name="notes"
+                    rows="3"
+                    class="form-control"
+                  ></textarea>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 gap-2">
+                  <button type="submit" class="btn btn-sbh-primary">
+                    Submit suggestion
+                  </button>
+                  <a class="btn btn-outline-secondary rounded-pill" href="{% url 'home' %}">
+                    Back to home
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: big image panel -->
+        <div class="col-lg-5">
+          <div class="sbh-card suggest-side-card h-100">
+            <div>
+              <div class="suggest-tag">Study Buddy Hub</div>
+              <div class="suggest-side-title">
+                Share your idea for the next group
+              </div>
+              <p class="suggest-side-text">
+                Use this form when you don’t find a suitable study group but you know what kind of
+                support you and other students would like.
+              </p>
+            </div>
+
+            <div class="suggest-image-wrap">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/64959c1091617327d9ef78bf/fc382639-cc19-4330-9e00-24e8698b9b0a/Image%2BPost%2BTemplate%2B%2891%29.png"
+                alt="Illustration of students planning and working together"
+                class="suggest-image"
+              >
+            </div>
+
+            <div class="suggest-side-footer">
+              Once you submit, the Study Buddy team can review your suggestion and, where possible,
+              use it when setting up future study groups.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center g-4">
+
+  <div class="col-lg-5 d-none d-md-block">
+    <div class="sbh-card p-3">
+      <img
+        src="https://cardinalatwork.stanford.edu/sites/cardinalatwork/files/styles/responsive_large/public/media/image/join_a_group_banner_759_x_2000_72_dpi_1_0.png?itok=RIMpOBlR"
+        alt="People joining a group"
+        class="img-fluid rounded-3"
+        style="object-fit: cover;"
+      >
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="sbh-card p-4 p-md-5">
+      <h1 class="h3 mb-2 text-center">Join a Study Group</h1>
+      <p class="sbh-section-subtitle text-center mb-4">
+        Fill in the form to send your request to the group owner.
+      </p>
+
+      <form method="post" class="vstack gap-3">
+        {% csrf_token %}
+
+        <div>
+          <label class="form-label" for="full_name">Full name</label>
+          <input type="text" id="full_name" name="full_name"
+                 class="form-control" required>
+        </div>
+
+        <div>
+          <label class="form-label" for="email">Email address</label>
+          <input type="email" id="email" name="email"
+                 class="form-control" required>
+        </div>
+
+        <div>
+          <label class="form-label" for="course_code">Course code</label>
+          <input type="text" id="course_code" name="course_code"
+                 class="form-control" required>
+        </div>
+
+        <div>
+          <label class="form-label" for="message">Message to the group owner</label>
+          <textarea id="message" name="message" rows="4"
+                    class="form-control"
+                    placeholder="Tell the owner why you want to join"></textarea>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center pt-2">
+          <button type="submit" class="btn btn-sbh-primary">
+            Submit request
+          </button>
+          <a class="btn btn-outline-secondary rounded-pill" href="{% url 'home' %}">
+            Back to home
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

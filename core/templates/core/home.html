@@ -1,0 +1,246 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<style>
+  .home-hero {
+    min-height: 65vh;
+    position: relative;
+  }
+
+  .home-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(129, 140, 248, 0.18) 0, transparent 45%),
+      radial-gradient(circle at 80% 0%, rgba(236, 72, 153, 0.16) 0, transparent 55%);
+    opacity: 0.65;
+  }
+
+  .home-hero > .row {
+    position: relative;
+    z-index: 1;
+  }
+
+  .home-hero-title span.text-primary {
+  background: linear-gradient(135deg, var(--sbh-primary), var(--sbh-primary-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+  .home-hero-actions a {
+    font-size: 0.95rem;
+  }
+
+  .home-hero-visual {
+    position: relative;
+  }
+
+  .home-hero-frame {
+    position: relative;
+    border-radius: 1.8rem;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.26);
+    background: radial-gradient(circle at top left, #fef3ff, #e0e7ff, #111827);
+  }
+
+  .home-hero-frame img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    mix-blend-mode: normal;
+  }
+
+  .home-hero-frame::after {
+    content: "";
+    position: absolute;
+    inset-inline: 14%;
+    bottom: -16px;
+    height: 32px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.45), transparent 60%);
+    opacity: 0.7;
+  }
+
+  .groups-shell {
+    margin-top: 3rem;
+  }
+
+  .groups-shell-header {
+    border-bottom: 1px dashed rgba(148, 163, 184, 0.45);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .groups-filter-form input {
+    min-width: 220px;
+  }
+
+  .groups-filter-form .btn {
+    white-space: nowrap;
+  }
+
+  .group-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 6px 18px rgba(148, 163, 184, 0.16);
+    transition:
+      transform 0.18s ease-out,
+      box-shadow 0.18s ease-out,
+      border-color 0.18s ease-out,
+      background-color 0.18s ease-out;
+  }
+
+  .group-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(123, 92, 250, 0.45);
+    box-shadow: 0 16px 32px rgba(79, 70, 229, 0.28);
+    background-color: #fbfaff;
+  }
+
+  .group-card-title {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .group-card-meta {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #9ca3af;
+  }
+
+  .group-card-desc {
+    font-size: 0.92rem;
+    min-height: 3.5rem;
+  }
+
+  .group-card-footer .badge {
+    font-size: 0.72rem;
+    border-radius: 999px;
+  }
+
+  @media (max-width: 991.98px) {
+    .home-hero {
+      min-height: auto;
+    }
+
+    .home-hero-frame img {
+      height: 260px;
+    }
+
+    .groups-shell {
+      margin-top: 2.25rem;
+    }
+  }
+</style>
+
+<section class="py-4 py-lg-5 home-hero">
+  <div class="row align-items-center g-4 mb-5">
+    <div class="col-lg-6">
+      <div class="mb-3">
+        <span class="sbh-pill">Study Buddy Hub</span>
+      </div>
+
+      <h1 class="display-6 fw-semibold mb-3 home-hero-title">
+        Find your next <span class="text-primary">study partner</span>
+      </h1>
+
+      <p class="sbh-section-subtitle mb-4">
+        Join a study group, ask for one-to-one support, or suggest a new group that fits your course and schedule.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2 home-hero-actions">
+        <a href="{% url 'join_group' %}" class="btn btn-sbh-primary">
+          Join a group
+        </a>
+        <a href="{% url 'suggest_group' %}" class="btn btn-outline-primary rounded-pill">
+          Suggest new group
+        </a>
+        <a href="{% url 'help_request' %}" class="btn btn-outline-secondary rounded-pill">
+          Request 1-to-1 help
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="home-hero-visual">
+        <div class="home-hero-frame">
+          <img
+            src="https://www.torontomu.ca/content/dam/diversity/research/StudyBuddy/Study-Buddy.jpg"
+            alt="Students studying together"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sbh-card p-3 p-md-4 mb-4 groups-shell">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3 groups-shell-header">
+      <div>
+        <h2 class="h4 sbh-section-title mb-1">Available study groups</h2>
+        <p class="sbh-section-subtitle mb-0">
+          Explore groups by topic, mode, and size.
+        </p>
+      </div>
+
+      <form method="get" class="d-flex flex-wrap gap-2 groups-filter-form" role="search">
+        <input
+          type="text"
+          name="search"
+          value="{{ search }}"
+          class="form-control"
+          placeholder="Search by group title…"
+        >
+        <button type="submit" class="btn btn-outline-primary rounded-pill">
+          Filter
+        </button>
+      </form>
+    </div>
+
+    <div class="row g-4">
+      {% for group in groups %}
+        <div class="col-md-6 col-lg-4">
+          <div class="sbh-card group-card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 mb-1 group-card-title">{{ group.title }}</h3>
+
+              <p class="group-card-meta mb-2">
+                Mode: {{ group.mode|default:"n/a" }} ·
+                Max members: {{ group.max_members|default:"–" }}
+              </p>
+
+              <p class="mb-3 group-card-desc">
+                {{ group.description }}
+              </p>
+
+              <div class="d-flex justify-content-between align-items-center mt-auto group-card-footer">
+                <span class="badge bg-light text-muted border">
+                  Example group
+                </span>
+                <a href="{% url 'join_group' %}" class="btn btn-sm btn-sbh-primary">
+                  Request to join
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="alert alert-light border rounded-3 mb-0">
+            No groups found for this search.
+            You can <a href="{% url 'suggest_group' %}">suggest a new study group</a>.
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

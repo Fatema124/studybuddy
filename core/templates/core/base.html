@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Buddy Hub</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+          
+          --sbh-bg: #f7f4ff;
+          --sbh-surface: #ffffff;
+          --sbh-primary: #7b5cfa;
+          --sbh-primary-soft: #ece4ff;
+          --sbh-primary-dark: #5a3dd9;
+          --sbh-accent: #ffb5d9;
+          --sbh-text-main: #111827;
+          --sbh-text-muted: #6b7280;
+          --sbh-border-subtle: #e5e7eb;
+        }
+
+        body {
+          background: radial-gradient(circle at top left, #fdf2ff 0, var(--sbh-bg) 40%, #f9fafb 100%);
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+          color: var(--sbh-text-main);
+        }
+
+        .sbh-navbar {
+          background: linear-gradient(120deg, var(--sbh-primary-dark), var(--sbh-primary));
+          box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+        }
+
+        .navbar-brand {
+          font-weight: 700;
+          letter-spacing: 0.03em;
+        }
+
+        .sbh-navbar .nav-link {
+          position: relative;
+          margin-left: 0.35rem;
+          margin-right: 0.35rem;
+          font-weight: 500;
+          opacity: 0.9;
+          transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .sbh-navbar .nav-link:hover,
+        .sbh-navbar .nav-link:focus {
+          opacity: 1;
+          transform: translateY(-1px);
+        }
+
+        .sbh-navbar .nav-link::after {
+          content: "";
+          position: absolute;
+          left: 0.5rem;
+          right: 0.5rem;
+          bottom: 0.2rem;
+          height: 2px;
+          border-radius: 999px;
+          background: linear-gradient(90deg, var(--sbh-accent), #ffffff);
+          transform: scaleX(0);
+          transform-origin: center;
+          transition: transform 0.2s ease-out;
+        }
+
+        .sbh-navbar .nav-link:hover::after,
+        .sbh-navbar .nav-link:focus::after {
+          transform: scaleX(1);
+        }
+
+        .dropdown-menu {
+          border-radius: 0.8rem;
+          border-color: var(--sbh-border-subtle);
+          box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+        }
+
+        .dropdown-item:active {
+          background: var(--sbh-primary-soft);
+          color: var(--sbh-primary-dark);
+        }
+
+        /* General layout helpers for all pages */
+        .sbh-page-shell {
+          padding-top: 2.5rem;
+          padding-bottom: 3rem;
+        }
+
+        .sbh-card {
+          background: var(--sbh-surface);
+          border-radius: 1.2rem;
+          border: 1px solid var(--sbh-border-subtle);
+          box-shadow:
+            0 18px 45px rgba(148, 163, 184, 0.16),
+            0 0 0 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .sbh-section-title {
+          font-weight: 650;
+          letter-spacing: 0.02em;
+        }
+
+        .sbh-section-subtitle {
+          color: var(--sbh-text-muted);
+        }
+
+        .btn-sbh-primary {
+          background: linear-gradient(135deg, var(--sbh-primary), var(--sbh-primary-dark));
+          border: none;
+          border-radius: 999px;
+          padding-inline: 1.4rem;
+          padding-block: 0.55rem;
+          font-weight: 600;
+          box-shadow: 0 10px 30px rgba(79, 70, 229, 0.35);
+        }
+
+        .btn-sbh-primary:hover {
+          background: linear-gradient(135deg, var(--sbh-primary-dark), var(--sbh-primary));
+          box-shadow: 0 14px 35px rgba(79, 70, 229, 0.45);
+        }
+
+        .form-control,
+        .form-select {
+          border-radius: 0.8rem;
+          border-color: #d4d4ff;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+          border-color: var(--sbh-primary);
+          box-shadow: 0 0 0 0.16rem rgba(123, 92, 250, 0.22);
+        }
+
+        label.form-label {
+          font-weight: 500;
+        }
+
+        .sbh-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          border-radius: 999px;
+          padding: 0.18rem 0.75rem;
+          background: var(--sbh-primary-soft);
+          color: var(--sbh-primary-dark);
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+
+        @media (max-width: 767.98px) {
+          .sbh-page-shell {
+            padding-top: 1.8rem;
+            padding-bottom: 2.2rem;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark sbh-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Study Buddy Hub</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+                <a class="nav-link" href="{% url 'join_group' %}">Join a Group</a>
+                <a class="nav-link" href="{% url 'view_requests' %}">View Requests</a>
+
+               
+                <a class="nav-link" href="{% url 'suggest_group' %}">Suggest Group</a>
+                <a class="nav-link" href="{% url 'help_request' %}">Help Request</a>
+                <a class="nav-link" href="{% url 'feedback' %}">Feedback</a>
+                <a class="nav-link" href="{% url 'tutor_signup' %}">Tutor Signup</a>
+
+                
+                {% if request.user.is_staff %}
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="ownerMenu"
+                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Owner tools
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="ownerMenu">
+                        <li>
+                            <a class="dropdown-item"
+                               href="{% url 'manage_tutor_applications' %}">
+                                Tutor applications
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="{% url 'manage_feedback' %}">
+                                Feedback overview
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container sbh-page-shell">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

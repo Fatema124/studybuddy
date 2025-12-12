@@ -1,0 +1,94 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+  .join-manage-shell {
+    min-height: 70vh;
+  }
+
+  .join-manage-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(123, 92, 250, 0.12);
+    color: #5a3dd9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .join-manage-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+
+  .join-manage-table thead th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .join-manage-table tbody td {
+    vertical-align: top;
+    font-size: 0.9rem;
+  }
+</style>
+
+<div class="join-manage-shell py-4 py-lg-5">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+      <div>
+        <span class="join-manage-pill mb-2 d-inline-block">Owner view</span>
+        <h1 class="h4 mb-1">Join requests</h1>
+        <p class="sbh-section-subtitle mb-0">
+          Review join requests submitted by students for your study groups.
+        </p>
+      </div>
+    </div>
+
+    <div class="sbh-card join-manage-card">
+      <div class="card-body pb-2">
+        <div class="table-responsive">
+          <table class="table table-striped mb-0 join-manage-table">
+            <thead class="table-light">
+              <tr>
+                <th>Full name</th>
+                <th>Email</th>
+                <th>Course code</th>
+                <th>Message</th>
+                <th>Requested at</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for r in requests %}
+              <tr>
+                <td>{{ r.full_name }}</td>
+                <td>{{ r.email }}</td>
+                <td>{{ r.course_code }}</td>
+                <td>{{ r.message }}</td>
+                <td>{{ r.requested_at }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="text-center text-muted py-4">
+                  No join requests stored yet.
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <a href="{% url 'home' %}" class="btn btn-link mt-2 px-0">
+      Back to home
+    </a>
+  </div>
+</div>
+{% endblock %}

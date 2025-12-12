@@ -1,0 +1,179 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<style>
+  .help-shell {
+    min-height: 70vh;
+  }
+
+  .help-main-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .help-side-card {
+    border-radius: 1.2rem;
+    border: 1px solid rgba(123, 92, 250, 0.25);
+    background: linear-gradient(140deg, #f1e9ff, #f7f4ff);
+    box-shadow:
+      0 18px 45px rgba(148, 163, 184, 0.16),
+      0 0 0 1px rgba(255, 255, 255, 0.6);
+  }
+
+  .help-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(123, 92, 250, 0.12);
+    color: #5a3dd9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .help-image {
+    width: 100%;
+    max-height: 230px;
+    object-fit: cover;
+    border-radius: 0.9rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+    background-color: #fff;
+  }
+
+  .help-tips-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .help-tips-list {
+    padding-left: 1.1rem;
+  }
+
+  .help-tips-list li + li {
+    margin-top: 0.35rem;
+  }
+</style>
+
+<div class="help-shell py-4 py-lg-5">
+  <div class="row g-4 align-items-stretch">
+
+    
+    <div class="col-lg-7">
+      <div class="sbh-card help-main-card h-100">
+        <div class="card-body p-4 p-md-5">
+          <span class="help-pill mb-3">Ask for help</span>
+
+          <h1 class="h3 mb-2">Request one-to-one support</h1>
+          <p class="sbh-section-subtitle mb-4">
+            Share what you need and when you are available so a tutor or mentor can contact you.
+          </p>
+
+          <form method="post" class="vstack gap-3">
+            {% csrf_token %}
+
+            <div>
+              <label for="student_name" class="form-label">Your name</label>
+              <input
+                type="text"
+                id="student_name"
+                name="student_name"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <div>
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="course_code" class="form-label">Course code</label>
+                <input
+                  type="text"
+                  id="course_code"
+                  name="course_code"
+                  class="form-control"
+                  placeholder="e.g. IT7009"
+                  required
+                >
+              </div>
+              <div class="col-md-6">
+                <label for="preferred_time" class="form-label">Preferred time</label>
+                <input
+                  type="text"
+                  id="preferred_time"
+                  name="preferred_time"
+                  class="form-control"
+                  placeholder="e.g. Sunday 7–9 pm"
+                  required
+                >
+              </div>
+            </div>
+
+            <div>
+              <label for="topic" class="form-label">Topic you need help with</label>
+              <input
+                type="text"
+                id="topic"
+                name="topic"
+                class="form-control"
+                placeholder="e.g. chapter 4 – indexing topic"
+                required
+              >
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center pt-2 gap-2">
+              <button type="submit" class="btn btn-sbh-primary">
+                Submit help request
+              </button>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary rounded-pill">
+                Back to home
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="col-lg-5">
+      <div class="sbh-card help-side-card h-100 d-flex flex-column">
+        <div class="p-4 pb-0">
+          <img
+            src="https://previews.123rf.com/images/artursz/artursz1808/artursz180805472/106573496-word-writing-text-ask-for-help-business-concept-for-request-to-support-assistance-needed.jpg"
+            alt="Ask for help"
+            class="help-image mb-3"
+          >
+        </div>
+
+        <div class="card-body pt-3 d-flex flex-column">
+          <div class="help-tips-title mb-2">Tips for a clear request</div>
+          <ul class="small text-muted mb-3 help-tips-list">
+            <li>Write the course name and the exact topic you want to review.</li>
+            <li>Add a short example, such as an assignment, question, or chapter title.</li>
+            <li>Mention a few time slots that are usually good for you.</li>
+            <li>Include any preferences, like online or on campus.</li>
+          </ul>
+
+          <div class="mt-auto small text-muted">
+            Example: “IT7405 – I’d like help with the project requirements and
+            how to structure my database design. I’m free on Monday or Wednesday evenings after 7 pm.”
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
